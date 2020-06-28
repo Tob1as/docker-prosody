@@ -7,13 +7,10 @@ LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 	org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
 	org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
 
-#ENV LANG C.UTF-8
-#ENV TERM=xterm
-
 RUN set -eux; \
-	apk --no-cache add \
+    apk --no-cache add \
     #git wget curl nano zip unzip \
-	#tzdata \
+    #tzdata \
     libidn \
     icu-libs \
     libssl1.1 \
@@ -31,9 +28,9 @@ RUN set -eux; \
     openssl \
     ca-certificates \
     #lua5.2-ldap \
-	prosody \
+    prosody \
     mercurial \
-	; \
+    ; \
     cp /etc/prosody/prosody.cfg.lua /etc/prosody/prosody.cfg.lua.backup ; \
     mkdir -p /etc/prosody/conf.d ; \
     mkdir -p /usr/lib/prosody/modules-community-available ; \
