@@ -1,11 +1,11 @@
 FROM alpine:3.12
 
 LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
-	org.opencontainers.image.title="prosody" \
-	org.opencontainers.image.description="Prosody (XMPP) on x86_64 arch" \
-	org.opencontainers.image.licenses="Apache-2.0" \
-	org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
-	org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
+    org.opencontainers.image.title="prosody" \
+    org.opencontainers.image.description="Prosody (XMPP) on x86_64 arch" \
+    org.opencontainers.image.licenses="Apache-2.0" \
+    org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
+    org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
 
 RUN set -eux; \
     apk --no-cache add \
@@ -40,9 +40,9 @@ RUN set -eux; \
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN set -eux; \
-	chmod +x /usr/local/bin/entrypoint.sh ; \
-	#sed -i -e 's/\r$//' /usr/local/bin/entrypoint.sh ; \
-	mkdir /entrypoint.d
+    chmod +x /usr/local/bin/entrypoint.sh ; \
+    #sed -i -e 's/\r$//' /usr/local/bin/entrypoint.sh ; \
+    mkdir /entrypoint.d
 
 #COPY prosody.cfg.lua /etc/prosody/prosody.cfg.lua
 
