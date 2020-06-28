@@ -36,7 +36,7 @@ RUN set -eux; \
     mkdir -p /usr/lib/prosody/modules-community-available ; \
     mkdir -p /usr/lib/prosody/modules-community-enable ; \
     mkdir -p /usr/lib/prosody/modules-custom ; \
-    hg clone https://hg.prosody.im/prosody-modules/ /usr/lib/prosody/modules-community
+    hg clone https://hg.prosody.im/prosody-modules/ /usr/lib/prosody/modules-community-available
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN set -eux; \
