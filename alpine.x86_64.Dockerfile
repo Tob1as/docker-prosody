@@ -10,7 +10,7 @@ LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 RUN set -eux; \
     apk --no-cache add \
     #git wget curl nano zip unzip \
-    #tzdata \
+    tzdata \
     libidn \
     icu-libs \
     libssl1.1 \
@@ -27,7 +27,7 @@ RUN set -eux; \
     lua5.2 \
     openssl \
     ca-certificates \
-    #lua5.2-ldap \
+    lua5.2-ldap \
     prosody \
     mercurial \
     ; \
@@ -46,10 +46,12 @@ RUN set -eux; \
 
 #COPY prosody.cfg.lua /etc/prosody/prosody.cfg.lua
 
-USER prosody
+## https://prosody.im/doc/ports (proxy, c2s, s2s, http, https, components)
+EXPOSE 5000 5222 5269 5280 5281 5347
 
-EXPOSE 80 443 5222 5269 5347 5280 5281
 VOLUME ["/etc/prosody/", "/etc/prosody/conf.d/", "/usr/lib/prosody/modules-custom"]
 
+USER prosody
+
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["prosody"]
+CMD ["prosody", "-F"]

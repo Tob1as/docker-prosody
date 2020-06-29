@@ -206,3 +206,6 @@ VirtualHost "localhost"
 --
 --Component "gateway.example.com"
 --	component_secret = "password"
+
+-- Include other prosody config
+--Include "conf.d/*.cfg.lua"
