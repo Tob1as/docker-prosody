@@ -5,7 +5,7 @@ set -eu
 ## Variables
 ## https://stackoverflow.com/a/32343069/3441436
 : "${TZ:=""}"                                 # set timezone, example: "Europe/Berlin"
-: "${SET_MODULES:=""}"                        # set modules (symlink will create from available to enable)
+: "${SELECT_COMMUNITY_MODULES:=""}"           # select modules, separate with spaces (symlink will create from available to enable)
 : "${ENABLE_CONFD:="0"}"                      # set 1 to enable
 : "${ENABLE_MODULE_PATHS:="0"}"               # set 1 to enable
 
@@ -22,15 +22,22 @@ if [ -n "$TZ" ]; then
 	date
 fi
 
-## set modules (symlink will create from available to enable)
-if [ -n "$SET_MODULES" ]; then
-	echo "ToDo: loop for create module symlink from available to enable!!!!"
-	echo ">> set modules ${SET_MODULES}"
+## select modules, separate with spaces (symlink will create from available to enable)
+if [ -n "$SELECT_COMMUNITY_MODULES" ]; then
+	#echo ">> set community modules: ${SELECT_COMMUNITY_MODULES}"
+	echo ">> set community modules:"
+	#reset_IFS=$IFS
+	#IFS=' '
+	for c_module in $SELECT_COMMUNITY_MODULES; do
+		echo "-> $c_module"
+		ln -sf /usr/lib/prosody/modules-community-available/${c_module} /usr/lib/prosody/modules-community-enable/${c_module}
+	done
+	#IFS=$reset_IFS
 fi
 
 # more entrypoint-files
 for f in /entrypoint.d/*; do
-	#echo ">> $f"
+	#echo ">> entrypoint-file: $f"
 	case "$f" in
 		*.sh)
 			if [ ! -x "$f" ] ; then 
@@ -48,7 +55,7 @@ for f in /entrypoint.d/*; do
 				echo ">> copy $f in /etc/prosody/conf.d/"
 			fi
 			;;
-		*)  echo ">> $f must be a \".sh\" or \".cfg\" file!" ;;
+		*)  echo ">> $f must be a \".sh\" or \".cfg.lua\" file!" ;;
 	esac
 done
 
@@ -66,18 +73,18 @@ fi
 
 ## use shell (docker run --name prosody -it $imagename sh)
 if [[ "$1" == "sh" ]]; then
-    exec sh
+	exec sh
 fi
 
 ## ...
 if [[ "$1" != "prosody" ]]; then
-    exec prosodyctl "$@"
-    exit 0;
+	exec prosodyctl "$@"
+	exit 0;
 fi
 
 ## ...
 if [ "$LOCAL" -a  "$PASSWORD" -a "$DOMAIN" ] ; then
-    prosodyctl register "$LOCAL" "$DOMAIN" "$PASSWORD"
+	prosodyctl register "$LOCAL" "$DOMAIN" "$PASSWORD"
 fi
 
 # exec CMD
