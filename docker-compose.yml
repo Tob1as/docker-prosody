@@ -25,7 +25,7 @@ services:
       - ./prosody/entrypoint.d:/entrypoint.d:ro
       ## optional: own ssl-cert and -key:
       #- ./prosody/ssl/mySSL.crt:/etc/ssl/certs/ssl.crt:ro
-      #- ./prosody/ssl/mySSL.key:/etc/ssl/certs/private/ssl.key:ro
+      #- ./prosody/ssl/mySSL.key:/etc/ssl/certs/ssl.key:ro
     environment:
       TZ: "Europe/Berlin"
       SELECT_COMMUNITY_MODULES: "mod_cloud_notify mod_csi mod_http_upload mod_lastlog mod_mam_muc mod_smacks"
