@@ -3,9 +3,8 @@ services:
   prosody:
     #build:
     #  context: ./
-    #  dockerfile: alpine.x86_64.Dockerfile
+    #  dockerfile: alpine.multiarch.Dockerfile
     image: tobi312/prosody:latest
-    #image: tobi312/prosody:arm-latest
     container_name: prosody
     restart: unless-stopped
     ports:

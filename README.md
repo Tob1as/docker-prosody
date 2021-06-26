@@ -1,8 +1,7 @@
 # Prosody (XMPP) on x86_64 and ARM (Raspberry Pi) 
 
 ### Supported tags and respective `Dockerfile` links
--	[`latest` (*Dockerfile*)](https://github.com/Tob1asDocker/prosody/blob/master/alpine.x86_64.Dockerfile)
--	[`arm-latest` (*Dockerfile*)](https://github.com/Tob1asDocker/prosody/blob/master/alpine.armhf.Dockerfile)
+-	[`latest` (*Dockerfile*)](https://github.com/Tob1asDocker/prosody/blob/master/alpine.multiarch.Dockerfile)
 
 ### What is Prosody?
 
@@ -43,7 +42,6 @@ version: "2.4"
 services:
   prosody:
     image: tobi312/prosody:latest
-    #image: tobi312/prosody:arm-latest
     container_name: prosody
     restart: unless-stopped
     ports:
