@@ -1,11 +1,18 @@
-FROM alpine:3.14
+FROM alpine:latest
+
+SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
+
+ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
-    org.opencontainers.image.title="prosody" \
-    org.opencontainers.image.description="Prosody (XMPP/Jabber)" \
-    org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
-    org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
+      org.opencontainers.image.title="prosody" \
+      org.opencontainers.image.description="Prosody (XMPP/Jabber)" \
+      org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.licenses="Apache-2.0" \
+      org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
+      org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
 
 RUN set -eux; \
     apk --no-cache add \
@@ -14,6 +21,9 @@ RUN set -eux; \
     libidn \
     icu-libs \
     libssl1.1 \
+    libevent-dev \
+    libpq-dev \
+    sqlite-dev \
     lua5.2-bitop \
     lua5.2-dbi-mysql \
     lua5.2-dbi-postgresql \
@@ -24,10 +34,11 @@ RUN set -eux; \
     lua5.2-sec \
     lua5.2-socket \
     lua5.2-lzlib \
+    lua5.2-ldap \
     lua5.2 \
+    luarocks5.2 \
     openssl \
     ca-certificates \
-    lua5.2-ldap \
     prosody \
     mercurial \
     ; \
@@ -41,10 +52,10 @@ RUN set -eux; \
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN set -eux; \
     chmod +x /usr/local/bin/entrypoint.sh ; \
-    #sed -i -e 's/\r$//' /usr/local/bin/entrypoint.sh ; \
+    sed -i -e 's/\r$//' /usr/local/bin/entrypoint.sh ; \
     mkdir /entrypoint.d
 
-#COPY prosody.cfg.lua /etc/prosody/prosody.cfg.lua
+#COPY entrypoint.d/prosody.cfg.lua /etc/prosody/prosody.cfg.lua
 
 ## https://prosody.im/doc/ports (proxy, c2s, s2s, http, https, components)
 EXPOSE 5000 5222 5269 5280 5281 5347

@@ -75,10 +75,13 @@ fi
 if [[ "$1" == "sh" ]]; then
 	exec sh
 fi
+if [[ "$1" == "bash" ]]; then
+	exec bash
+fi
 
 ## ...
 if [[ "$1" != "prosody" ]]; then
-	exec prosodyctl "$@"
+	exec prosodyctl $*
 	exit 0;
 fi
 
