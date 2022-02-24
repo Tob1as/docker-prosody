@@ -12,7 +12,7 @@ Prosody is a modern XMPP communication server. It aims to be easy to set up and 
 ![logo](https://avatars1.githubusercontent.com/u/4312871?s=64&v=4)
 
 ### About these images:
-* based on official Images: [github.com/alpinelinux/docker-alpine](AlpineLinux)
+* based on official Images: [AlpineLinux](https://github.com/alpinelinux/docker-alpine)
 
 ### How to use these images:
 * configure [`prosody.cfg.lua`](https://github.com/Tob1asDocker/prosody/blob/master/entrypoint.d/prosody.cfg.lua)
