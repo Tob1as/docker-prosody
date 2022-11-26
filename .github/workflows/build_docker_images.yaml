@@ -37,12 +37,12 @@ jobs:
           #REDHAT_QUAY_REPO=${{ secrets.REDHAT_QUAY_USERNAME }}/${GITHUB_REPO_SHORT}
           
           # Set output parameters to github action.
-          echo ::set-output name=build_date::${BUILD_DATE}
-          echo ::set-output name=build_date_numeric::${BUILD_DATE_NUMERIC}
-          echo ::set-output name=commit_hash::${COMMIT_HASH}
-          echo ::set-output name=github_repo::${GITHUB_REPO}
-          echo ::set-output name=docker_repo::${DOCKER_REPO}
-          #echo ::set-output name=redhat_quay_repo::${REDHAT_QUAY_REPO}
+          echo "build_date=${BUILD_DATE}" >> $GITHUB_OUTPUT
+          echo "build_date_numeric=${BUILD_DATE_NUMERIC}" >> $GITHUB_OUTPUT
+          echo "commit_hash=${COMMIT_HASH}" >> $GITHUB_OUTPUT
+          echo "github_repo=${GITHUB_REPO}" >> $GITHUB_OUTPUT
+          echo "docker_repo=${docker_repo}" >> $GITHUB_OUTPUT
+          #echo "redhat_quay_repo=${REDHAT_QUAY_REPO}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         id: qemu
@@ -92,3 +92,12 @@ jobs:
             ghcr.io/${{steps.script.outputs.github_repo}}:latest
             docker.io/${{steps.script.outputs.docker_repo}}:latest
           #  quay.io/${{steps.script.outputs.redhat_quay_repo}}:latest
+
+      - name: Docker Hub Description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{steps.script.outputs.docker_repo}}
+          short-description: ${{ github.event.repository.description }}
+          readme-filepath: README.md
