@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.15
 
 SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
 
