@@ -12,7 +12,7 @@ LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
       org.opencontainers.image.revision="${VCS_REF}" \
       org.opencontainers.image.licenses="Apache-2.0" \
       org.opencontainers.image.url="https://hub.docker.com/r/tobi312/prosody" \
-      org.opencontainers.image.source="https://github.com/Tob1asDocker/prosody"
+      org.opencontainers.image.source="https://github.com/Tob1as/docker-prosody"
 
 RUN set -eux; \
     apk --no-cache add \

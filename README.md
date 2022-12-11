@@ -1,7 +1,7 @@
 # Prosody (XMPP) on x86_64 and ARM (Raspberry Pi) 
 
 ### Supported tags and respective `Dockerfile` links
--	[`latest` (*Dockerfile*)](https://github.com/Tob1asDocker/prosody/blob/master/alpine.multiarch.Dockerfile)
+-	[`latest` (*Dockerfile*)](https://github.com/Tob1as/docker-prosody/blob/master/alpine.multiarch.Dockerfile)
 
 ### What is Prosody?
 
@@ -15,7 +15,7 @@ Prosody is a modern XMPP communication server. It aims to be easy to set up and 
 * based on official images: AlpineLinux: [DockerHub](https://hub.docker.com/_/alpine) / [GitHub](https://github.com/alpinelinux/docker-alpine)
 
 ### How to use these images:
-* configure [`prosody.cfg.lua`](https://github.com/Tob1asDocker/prosody/blob/master/entrypoint.d/prosody.cfg.lua)
+* configure [`prosody.cfg.lua`](https://github.com/Tob1as/docker-prosody/blob/master/entrypoint.d/prosody.cfg.lua)
 *  ``` $ docker run --name prosody -v $(pwd)/prosody/prosody.cfg.lua:/etc/prosody/prosody.cfg.lua -v $(pwd)/prosody/conf.d:/etc/prosody/conf.d -v $(pwd)/prosody/modules-custom:/usr/lib/prosody/modules-custom -p 5222:5222 -p 5269:5269 -d tobi312/prosody:latest```
 
 * Environment Variables:  
@@ -71,4 +71,4 @@ services:
 
 ### This Image on
 * [DockerHub](https://hub.docker.com/r/tobi312/prosody/)
-* [GitHub](https://github.com/Tob1asDocker/prosody)
+* [GitHub](https://github.com/Tob1as/docker-prosody)
