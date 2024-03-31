@@ -20,7 +20,7 @@ RUN set -eux; \
     tzdata \
     libidn \
     icu-libs \
-    libssl1.1 \
+    libssl3 \
     libevent-dev \
     libpq-dev \
     sqlite-dev \
