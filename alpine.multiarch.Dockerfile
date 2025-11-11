@@ -62,7 +62,7 @@ EXPOSE 5000 5222 5269 5280 5281 5347
 
 VOLUME ["/etc/prosody/", "/etc/prosody/conf.d/", "/usr/lib/prosody/modules-custom"]
 
-USER prosody
+#USER prosody
 
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["prosody"]
