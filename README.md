@@ -1,5 +1,7 @@
 # Prosody (XMPP) on x86_64 and ARM (Raspberry Pi) 
 
+> Note: There is also an official image that you can use: [GitHub](https://github.com/prosody/prosody-docker), [DockerHub](https://hub.docker.com/r/prosodyim/prosody) & [Docs](https://prosody.im/doc/docker)
+
 ### Supported tags and respective `Dockerfile` links
 -	[`latest` (*Dockerfile*)](https://github.com/Tob1as/docker-prosody/blob/master/alpine.multiarch.Dockerfile)
 
