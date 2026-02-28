@@ -91,6 +91,7 @@ jobs:
           tags: |
             ghcr.io/${{steps.script.outputs.github_repo}}:${{steps.script.outputs.build_date_numeric}}.${{steps.script.outputs.commit_hash}}
             ghcr.io/${{steps.script.outputs.github_repo}}:latest
+            docker.io/${{steps.script.outputs.docker_repo}}:${{steps.script.outputs.build_date_numeric}}.${{steps.script.outputs.commit_hash}}
             docker.io/${{steps.script.outputs.docker_repo}}:latest
           #  quay.io/${{steps.script.outputs.redhat_quay_repo}}:latest
 
