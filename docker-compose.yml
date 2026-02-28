@@ -16,15 +16,15 @@ services:
       - 5347:5347
     volumes:
       ## prosody config:
-      #- ./prosody/prosody.cfg.lua:/etc/prosody/prosody.cfg.lua
+      - ./prosody/prosody.cfg.lua:/etc/prosody/prosody.cfg.lua
       #- ./prosody/conf.d:/etc/prosody/conf.d
       ## optional own modules:
       #- ./prosody/modules-custom:/usr/lib/prosody/modules-custom
       ## optional: mount folder with own entrypoint-file(s) or *.cfg.lua files:
-      - ./prosody/entrypoint.d:/entrypoint.d:ro
+      #- ./prosody/entrypoint.d:/entrypoint.d:ro
       ## optional: own ssl-cert and -key:
-      #- ./prosody/ssl/mySSL.crt:/etc/ssl/certs/ssl.crt:ro
-      #- ./prosody/ssl/mySSL.key:/etc/ssl/certs/ssl.key:ro
+      #- ./prosody/ssl/ssl.crt:/etc/prosody/certs/ssl.crt:ro
+      #- ./prosody/ssl/ssl.key:/etc/prosody/certs/ssl.key:ro
     environment:
       TZ: "Europe/Berlin"
       SELECT_COMMUNITY_MODULES: "mod_cloud_notify mod_csi mod_http_upload mod_lastlog mod_mam_muc mod_smacks"

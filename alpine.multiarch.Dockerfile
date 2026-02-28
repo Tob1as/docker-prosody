@@ -23,8 +23,8 @@ RUN set -eux; \
     apk --no-cache add \
         tzdata \
         ca-certificates \
-        tini \
-        runuser \
+        #tini \
+        #runuser \
         #lua${LUA_VERSION} lua${LUA_VERSION}-socket lua${LUA_VERSION}-sec lua${LUA_VERSION}-expat lua${LUA_VERSION}-filesystem lua${LUA_VERSION}-unbound \
         prosody \
         lua${LUA_VERSION}-dbi-mysql \
@@ -38,9 +38,10 @@ RUN set -eux; \
     ; \
     cp /etc/prosody/prosody.cfg.lua /etc/prosody/prosody.cfg.lua.backup ; \
     mkdir -p /etc/prosody/conf.d ; \
-    mkdir -p /usr/lib/prosody/modules-community-available ; \
-    mkdir -p /usr/lib/prosody/modules-community-enable ; \
     mkdir -p /usr/lib/prosody/modules-custom ; \
+    mkdir -p /usr/lib/prosody/modules-community-available ; \    
+    mkdir -p /usr/lib/prosody/modules-community-enable ; \
+    chown prosody:prosody /usr/lib/prosody/modules-community-enable ; \
     hg clone https://hg.prosody.im/prosody-modules/ /usr/lib/prosody/modules-community-available
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
@@ -57,6 +58,6 @@ EXPOSE 5000/tcp 5222/tcp 5269/tcp 5280/tcp 5281/tcp 5347/tcp 5582/tcp
 # uid=100 gui=101
 #USER prosody
 
-#ENTRYPOINT ["entrypoint.sh"]
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
+#ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
 CMD ["prosody", "-F", "--config /etc/prosody/prosody.cfg.lua"]

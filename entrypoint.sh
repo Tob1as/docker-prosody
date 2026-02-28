@@ -45,19 +45,6 @@ find "/entrypoint.d/" -follow -type f -print | sort -n | while read -r f; do
 done
 
 if [ "$(id -u)" -eq 0 ]; then
-	## select modules, separate with spaces (symlink will create from available to enable)
-	if [ -n "$SELECT_COMMUNITY_MODULES" ]; then
-		#echo ">> set community modules: ${SELECT_COMMUNITY_MODULES}"
-		echo ">> set community modules:"
-		#reset_IFS=$IFS
-		#IFS=' '
-		for c_module in $SELECT_COMMUNITY_MODULES; do
-			echo "-> $c_module"
-			ln -sf /usr/lib/prosody/modules-community-available/${c_module} /usr/lib/prosody/modules-community-enable/${c_module}
-		done
-		#IFS=$reset_IFS
-	fi
-
 	## enable conf.d (only need if use default config and conf.d folder)
 	if [ "$ENABLE_CONFD" -eq "1" ] ; then
 		grep -qxF 'Include "/etc/prosody/conf.d/*.cfg.lua"' /etc/prosody/prosody.cfg.lua || echo 'Include "/etc/prosody/conf.d/*.cfg.lua"' >> /etc/prosody/prosody.cfg.lua
@@ -69,6 +56,16 @@ if [ "$(id -u)" -eq 0 ]; then
 		sed -i "s|--plugin_paths = {}|plugin_paths = { \"/usr/lib/prosody/modules\" , \"/usr/lib/prosody/modules-community-enable\", \"/usr/lib/prosody/modules-custom\" }|" /etc/prosody/prosody.cfg.lua
 		echo ">> enable and set module path (see dockerfile)"
 	fi
+fi
+
+## select modules, separate with spaces (symlink will create from available to enable)
+if [ -n "$SELECT_COMMUNITY_MODULES" ]; then
+	#echo ">> set community modules: ${SELECT_COMMUNITY_MODULES}"
+	echo ">> set community modules:"
+	for c_module in $SELECT_COMMUNITY_MODULES; do
+		echo "-> $c_module"
+		ln -sf /usr/lib/prosody/modules-community-available/${c_module} /usr/lib/prosody/modules-community-enable/${c_module}
+	done
 fi
 
 ## use shell (docker run --name prosody -it $imagename sh)
@@ -95,7 +92,7 @@ fi
 
 # exec CMD
 echo ">> exec docker CMD"
-#echo "$@"
-#exec "$@"
-echo "runuser -u prosody -- $@"
-exec runuser -u prosody -- "$@"
+echo "$@"
+exec "$@"
+#echo "runuser -u prosody -- $@"
+#exec runuser -u prosody -- "$@"
