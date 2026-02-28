@@ -67,6 +67,7 @@ services:
       SELECT_COMMUNITY_MODULES: "mod_cloud_notify mod_csi mod_http_upload mod_lastlog mod_mam_muc mod_smacks"
       ENABLE_CONFD: 0
       ENABLE_MODULE_PATHS: 0
+    #user: 'prosody'
 ```
 
 ### This Image on
